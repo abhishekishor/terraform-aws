@@ -66,7 +66,7 @@ resource "aws_instance" "public" {
   vpc_security_group_ids      = [aws_security_group.public.id]
   key_name                    = "practise"
   associate_public_ip_address = true
-  user_data 		      = file("user-data.sh")
+  user_data                   = file("user-data.sh")
 
   tags = {
     name = "${var.env_code}-public"
