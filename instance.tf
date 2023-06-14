@@ -25,8 +25,26 @@ resource "aws_security_group" "public" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["13.126.55.59/32"]
+    cidr_blocks = ["15.207.87.158/32"]
   }
+
+  ingress {
+    description = "HTTPD from Home Office"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["15.207.87.158/32"]
+  }
+
+
+  ingress {
+    description = "HTTPD from Home Office"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["49.37.66.135/32"]
+  }
+
 
   egress {
     from_port   = 0
@@ -48,6 +66,7 @@ resource "aws_instance" "public" {
   vpc_security_group_ids      = [aws_security_group.public.id]
   key_name                    = "practise"
   associate_public_ip_address = true
+  user_data                   = file("user-data.sh")
 
   tags = {
     name = "${var.env_code}-public"
