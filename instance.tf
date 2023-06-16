@@ -38,7 +38,7 @@ resource "aws_security_group" "public" {
 
 
   ingress {
-    description = "HTTPD from Home Office"
+    description = "HTTPD from Home Personal Laptop"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
