@@ -38,7 +38,7 @@ resource "aws_security_group" "public" {
 
 
   ingress {
-    description = "HTTPD from Home Personal Laptop"
+    description = "HTTPD from Home Office"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -60,9 +60,10 @@ resource "aws_security_group" "public" {
 }
 
 resource "aws_instance" "public" {
+  count = (data.terraform_remote_state.level1.outputs.public_subnet_id)
   ami                         = data.aws_ami.amazonlinux.id
   instance_type               = "t3.micro"
-  subnet_id                   = data.terraform_remote_state.level1.outputs.public_subnet_id[0]
+  subnet_id                   = data.terraform_remote_state.level1.outputs.public_subnet_id[count.index]
   vpc_security_group_ids      = [aws_security_group.public.id]
   key_name                    = "practise"
   associate_public_ip_address = true
@@ -114,5 +115,5 @@ resource "aws_instance" "private" {
 
 
 output "public_ip_address" {
-  value = aws_instance.public.public_ip
+  value = aws_instance.public[*].public_ip
 }
