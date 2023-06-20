@@ -18,7 +18,7 @@ EOF
 
 resource "aws_iam_role" "main" {
   name = var.env_code
-  
+
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -38,7 +38,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "main" {
   role       = aws_iam_role.main.name
-  policy_arn = aws_iam_policy.main.arn 
+  policy_arn = aws_iam_policy.main.arn
 }
 
 resource "aws_iam_instance_profile" "main" {
