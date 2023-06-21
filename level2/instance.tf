@@ -20,21 +20,6 @@ resource "aws_security_group" "public" {
   description = "Allow public traffics"
   vpc_id      = data.terraform_remote_state.level1.outputs.vpc_id
 
-  ingress {
-    description = "SSH from Home Office"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["13.233.111.5/32"]
-  }
-
-  ingress {
-    description = "HTTPD from Home Office"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["13.233.111.5/32"]
-  }
 
 
   ingress {
@@ -77,14 +62,6 @@ resource "aws_security_group" "private" {
   name        = "${var.env_code}-private"
   description = "Allow private traffics"
   vpc_id      = data.terraform_remote_state.level1.outputs.vpc_id
-
-  ingress {
-    description = "SSH from VPC"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [data.terraform_remote_state.level1.outputs.vpc_cidr]
-  }
 
   ingress {
     description     = "HTTPD from Home Load-balancer"
