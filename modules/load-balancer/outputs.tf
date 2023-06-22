@@ -3,5 +3,5 @@ output "target_group_arn" {
 }
 
 output "loadbalancer_sg" {
-  value = aws_security_group.load_balancer.id
+  value = aws_security_group.load-balancer.id
 }

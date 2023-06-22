@@ -19,7 +19,7 @@ resource "aws_security_group" "private" {
   }
 
   tags = {
-    name = "${var.env_code}-private"
+    Name = "${var.env_code}-private"
   }
 
 }
@@ -31,7 +31,7 @@ resource "aws_launch_configuration" "main" {
   instance_type        = "t3.micro"
   security_groups      = [aws_security_group.private.id]
   user_data            = file("${path.module}/user-data.sh")
-  key_name             = "practise"
+
   iam_instance_profile = aws_iam_instance_profile.main.name
 }
 

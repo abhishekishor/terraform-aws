@@ -1,5 +1,5 @@
-resource "aws_security_group" "load_balancer" {
-  name        = "${var.env_code}-load_balancer"
+resource "aws_security_group" "load-balancer" {
+  name        = "${var.env_code}-load-balancer"
   description = "Allow private traffics"
   vpc_id      = var.vpc_id
 
@@ -19,7 +19,7 @@ resource "aws_security_group" "load_balancer" {
   }
 
   tags = {
-    name = "${var.env_code}-load_balancer"
+    Name = "${var.env_code}-load-balancer"
   }
 
 }
@@ -28,7 +28,7 @@ resource "aws_lb" "main" {
 
   name               = var.env_code
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.load_balancer.id]
+  security_groups    = [aws_security_group.load-balancer.id]
   subnets            = var.subnet_id
 
   tags = {
@@ -64,7 +64,7 @@ resource "aws_lb_target_group" "main" {
 resource "aws_lb_listener" "main" {
 
   load_balancer_arn = aws_lb.main.arn
-  port              = 80
+  port              = "80"
   protocol          = "HTTP"
 
   default_action {
